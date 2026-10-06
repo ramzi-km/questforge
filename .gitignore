@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+
+# Compiled Output (Future-proofing)
+dist/
+build/
+
+# Environment Variables
+.env
+
+# OS Files
+.DS_Store
