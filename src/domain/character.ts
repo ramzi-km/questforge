@@ -49,8 +49,12 @@ export class Character {
     if (amount < 0) {
       throw new Error("Heal amount cannot be negative");
     }
-    //
+
     // Health should not exceed max health
     this._health = Math.min(this._maxHealth, this._health + amount);
+  }
+
+  public specialAbility(target: Character): void {
+    console.log(`${this.name} flails wildly, but nothing special happens.`);
   }
 }
