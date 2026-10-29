@@ -6,3 +6,11 @@ export function runSpecialRound(
 ): void {
   attacker.specialAbility(defender);
 }
+
+export function totalPartyDamage(party: Character[], target: Character) {
+  console.log(`\n--- Total Party Attack initiated on ${target.name}! ---`);
+
+  for (const member of party) {
+    member.attack(target);
+  }
+}
