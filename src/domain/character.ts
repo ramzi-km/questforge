@@ -1,4 +1,4 @@
-export class Character {
+export abstract class Character {
   public name: string;
   private _health: number;
   public attackPower: number;
@@ -54,7 +54,5 @@ export class Character {
     this._health = Math.min(this._maxHealth, this._health + amount);
   }
 
-  public specialAbility(target: Character): void {
-    console.log(`${this.name} flails wildly, but nothing special happens.`);
-  }
+  public abstract specialAbility(target: Character): void;
 }

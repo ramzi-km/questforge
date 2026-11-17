@@ -1,5 +1,5 @@
 import { Character } from "./domain/character";
-import { Warrior, Mage, Rogue, Cleric } from "./domain/classes";
+import { Warrior, Mage, Rogue, Cleric, Dragon } from "./domain/classes";
 import { totalPartyDamage } from "./domain/battle";
 
 // Assemble the mixed party
@@ -11,7 +11,7 @@ const party = [
 ];
 
 // Spawn a Boss
-const boss = new Character("Dragon Boss", 500, 50);
+const boss = new Dragon("Night Fury");
 
 console.log(`[Status] ${boss.name} spawns with ${boss.health} HP.`);
 

@@ -68,3 +68,23 @@ export class Cleric extends Character {
     );
   }
 }
+
+export class Dragon extends Character {
+  private _mana: number;
+  constructor(name: string) {
+    super(name, 500, 50);
+    this._mana = 500;
+  }
+
+  public specialAbility(target: Character): void {
+    const cost = 30;
+    if (this._mana < cost) {
+      console.log(`${this.name} doesn't have enough mana!`);
+      return;
+    }
+    this._mana -= cost;
+    const damage = this.attackPower * 2;
+    target.takeDamage(damage);
+    console.log(`${this.name} casts Fire! ${damage} damage to ${target.name}`);
+  }
+}
