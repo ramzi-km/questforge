@@ -1,21 +1,29 @@
-import { Character } from "./domain/character";
-import { Warrior, Mage, Rogue, Cleric, Dragon } from "./domain/classes";
-import { totalPartyDamage } from "./domain/battle";
+import { HealthPotion, Weapon, Armor } from "./domain/items";
+import { Warrior, Boss } from "./domain/classes";
 
-// Assemble the mixed party
-const party = [
-  new Warrior("Bram"),
-  new Mage("Sylla"),
-  new Rogue("Kade"),
-  new Cleric("Elara"), // The Cleric is included!
-];
+const hero = new Warrior("Bram");
+const boss = new Boss("Dragon Boss"); // Boss does 50 base damage
 
-// Spawn a Boss
-const boss = new Dragon("Night Fury");
+// 1. Give the character items
+hero.inventory.add(new HealthPotion(30));
+hero.inventory.add(new Weapon("Flaming Sword", 15));
+hero.inventory.add(new Armor("Steel Plate", 20));
 
-console.log(`[Status] ${boss.name} spawns with ${boss.health} HP.`);
+console.log(`\n--- Gearing Up ---`);
+// 2. Use the items (Slots: 0=Potion, 1=Weapon, 2=Armor)
+hero.inventory.use(2, hero); // Equips Armor
+hero.inventory.use(1, hero); // Equips Weapon
 
-// CHECKPOINT 2: Execute the loop without type checking
-totalPartyDamage(party, boss);
+console.log(
+  `[Status] ${hero.name} - ATK: ${hero.attackPower} | DEF: ${hero.defense}`,
+);
 
-console.log(`[Status] ${boss.name} has ${boss.health} HP remaining.`);
+console.log(`\n--- Battle ---`);
+// Boss attacks! Without armor: 50 dmg. With 20 DEF: should only do 30 dmg!
+boss.specialAbility(hero);
+
+console.log(`[Status] ${hero.name} HP: ${hero.health}`);
+
+// Hero heals up using the potion left in slot 0
+hero.inventory.use(0, hero);
+console.log(`[Status] ${hero.name} HP: ${hero.health}`);

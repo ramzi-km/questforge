@@ -69,7 +69,7 @@ export class Cleric extends Character {
   }
 }
 
-export class Dragon extends Character {
+export class Boss extends Character {
   private _mana: number;
   constructor(name: string) {
     super(name, 500, 50);

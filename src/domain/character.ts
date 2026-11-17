@@ -1,8 +1,11 @@
+import { Inventory } from "./inventory";
 export abstract class Character {
   public name: string;
   private _health: number;
   public attackPower: number;
   private readonly _maxHealth: number;
+  public inventory: Inventory;
+  private _defense: number = 0;
 
   constructor(
     characterName: string,
@@ -13,6 +16,8 @@ export abstract class Character {
     this._health = startingHealth;
     this._maxHealth = startingHealth;
     this.attackPower = startingAttack;
+
+    this.inventory = new Inventory();
   }
 
   public get health(): number {
@@ -27,8 +32,11 @@ export abstract class Character {
     if (amount < 0) {
       throw new Error("Damage cannot be negative");
     }
+
+    // Armor mitigates damage, but it cannot heal the character (Math.max to prevent negative damage)
+    const actualDamage = Math.max(0, amount - this.defense);
     // never allow negative HP
-    this._health = Math.max(0, this._health - amount);
+    this._health = Math.max(0, this._health - actualDamage);
   }
 
   public describe(): string {
@@ -55,4 +63,15 @@ export abstract class Character {
   }
 
   public abstract specialAbility(target: Character): void;
+
+  public get defense(): number {
+    return this._defense;
+  }
+
+  public set defense(value: number) {
+    if (value < 0) {
+      throw new Error("Defense cannot be negative.");
+    }
+    this._defense = value;
+  }
 }
